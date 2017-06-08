@@ -3,4 +3,5 @@
 (defpackage #:smmr-y-combinator
   (:use #:cl
         #:croatoan
-        #:drakma))
+        #:drakma
+        #:cl-json))

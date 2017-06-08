@@ -18,7 +18,8 @@
         ;; to return the value as text.
         (*text-content-types*
           (cons '("application" . "json") *text-content-types*)))
-    (http-request (build-hn-url endpoint parameter))))
+    (decode-json-from-string
+     (http-request (build-hn-url endpoint parameter)))))
 
 ;;; The following functions represent the endpoints of the API.
 
