@@ -5,7 +5,8 @@
   :author "Mark Gerarts <mark.gerarts@gmail.com>"
   :license "GPLv3"
   :depends-on (#:croatoan
-               #:drakma)
+               #:drakma
+               #:cl-json)
   :serial t
   :components ((:file "package")
                (:file "hacker-news-api")
