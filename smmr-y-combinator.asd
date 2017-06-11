@@ -10,4 +10,5 @@
   :serial t
   :components ((:file "package")
                (:file "hacker-news-api")
+               (:file "elements")
                (:file "smmr-y-combinator")))
