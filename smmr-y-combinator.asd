@@ -4,11 +4,12 @@
   :description "Browse and summarize HN in your terminal"
   :author "Mark Gerarts <mark.gerarts@gmail.com>"
   :license "GPLv3"
+  :version "0.0.1"
   :depends-on (#:croatoan
                #:drakma
                #:cl-json)
-  :serial t
-  :components ((:file "package")
-               (:file "hacker-news-api")
-               (:file "elements")
-               (:file "smmr-y-combinator")))
+  :components ((:module "src"
+                :components ((:file "package")
+                             (:file "hacker-news-api")
+                             (:file "elements")
+                             (:file "smmr-y-combinator")))))
