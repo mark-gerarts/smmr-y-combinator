@@ -9,17 +9,24 @@
    'string
    *hn-base-uri*
    endpoint
-   (if parameter (concatenate 'string "/" parameter))
+   (when parameter (format nil "/~A" parameter))
    ".json"))
 
 (defun do-request (endpoint &optional parameter)
   (let ((*header-stream* nil)
-        ;; The content type has to be specified in otder for drakma
+        ;; The content type has to be specified in order for drakma
         ;; to return the value as text.
         (*text-content-types*
           (cons '("application" . "json") *text-content-types*)))
     (decode-json-from-string
      (http-request (build-hn-url endpoint parameter)))))
+
+(defun fetch-item-list (item-list &optional (n (length item-list)))
+  "When given a list of item IDs, fetches the full details of every item."
+  (let ((first-n-ids (if (< n (length item-list))
+                         (subseq item-list 0 n)
+                         item-list)))
+    (loop for id in first-n-ids collect (get-item id))))
 
 ;;; The following functions represent the endpoints of the API.
 
