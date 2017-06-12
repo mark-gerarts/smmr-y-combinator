@@ -12,4 +12,5 @@
                 :components ((:file "package")
                              (:file "hacker-news-api")
                              (:file "elements")
+                             (:file "application")
                              (:file "smmr-y-combinator")))))
