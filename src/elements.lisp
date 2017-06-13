@@ -14,6 +14,7 @@
    (selectable
     :initarg :selectable
     :accessor selectable
+    :initform 't
     :documentation "Wether or not the element is selectable by the user.")
    (selected
     :initarg :selected

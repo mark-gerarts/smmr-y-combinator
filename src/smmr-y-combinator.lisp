@@ -16,4 +16,9 @@
            (application (make-instance 'application
                                        :screen scr
                                        :elements items)))
-      (render application))))
+      ;; Set the first element as selected by default.
+      (setf (is-selected (first items)) t)
+      (render application)
+      (event-case (scr event)
+        (:down (select-next application) (render application))
+        (#\q (return-from event-case))))))
