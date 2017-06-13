@@ -24,6 +24,16 @@
 
 (defgeneric draw (element scr))
 
+(defgeneric x (element))
+
+(defmethod x ((element element))
+  (first (pos element)))
+
+(defgeneric y (element))
+
+(defmethod y ((element element))
+  (second (pos element)))
+
 (defclass item (element)
   ((data
     :initarg :data
@@ -37,6 +47,7 @@
   (:documentation "An element that represents a HN item"))
 
 (defmethod draw ((item item) scr)
+  (move scr (x item) (y item))
   (format scr "~A~A: ~A"
           (if (is-selected item) "> " "  ")
           (index item)

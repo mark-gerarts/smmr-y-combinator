@@ -2,14 +2,18 @@
 
 (in-package #:smmr-y-combinator)
 
+(defun stories-to-items (stories)
+  (loop for story in stories
+        for i from 0 collect
+        (make-instance 'item :data story :pos `(,i 0))))
+
 (defun init ()
   (with-screen (scr :input-echoing nil
                     :input-blocking t
                     :cursor-visibility nil
                     :enable-colors t)
-    (let* ((items (mapcar #'(lambda (story) (make-instance 'item :data story))
-                          (fetch-item-list (get-top-stories) 2)))
+    (let* ((items (stories-to-items (fetch-item-list (get-top-stories) 2)))
            (application (make-instance 'application
                                        :screen scr
-                                       :elements *items*)))
+                                       :elements items)))
       (render application))))
