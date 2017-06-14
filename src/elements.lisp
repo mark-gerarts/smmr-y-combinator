@@ -4,6 +4,8 @@
 
 (in-package #:smmr-y-combinator)
 
+;;; Element.
+
 (defclass element ()
   ((pos
     :initarg :pos
@@ -35,6 +37,8 @@
 (defmethod y ((element element))
   (second (pos element)))
 
+;;; HN item.
+
 (defclass item (element)
   ((data
     :initarg :data
@@ -59,3 +63,23 @@
 
 (defmethod get-property ((item item) property)
   (cdr (assoc property (data item))))
+
+;;; Button
+
+(defclass button (element)
+  ((action
+    :initarg :action
+    :accessor action
+    :documentation "The action that will be performed when the button is
+                    activated.")
+   (label
+    :initarg :label
+    :accessor label
+    :documentation "The text that will be printed."))
+  (:documentation "Represents an interactable button"))
+
+(defmethod draw ((button button) scr)
+  (move scr (x button) (y button))
+  (format scr "~A~A"
+          (if (is-selected button) ">" " ")
+          (label button)))
