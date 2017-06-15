@@ -32,6 +32,6 @@
       (setf (is-selected (first elements)) t)
       (render application)
       (event-case (scr event)
-        ;; @todo: add :up as well
+        (:up (select-previous application) (render application))
         (:down (select-next application) (render application))
         (#\q (return-from event-case))))))
