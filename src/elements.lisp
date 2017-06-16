@@ -15,14 +15,20 @@
                     tuple x and y.")
    (selectable
     :initarg :selectable
-    :accessor selectable
+    :accessor selectable-p
     :initform 't
     :documentation "Wether or not the element is selectable by the user.")
    (selected
     :initarg :selected
     :initform nil
-    :accessor is-selected
-    :documentation "Wether or not the element is selected by the user."))
+    :accessor selected-p
+    :documentation "Wether or not the element is selected by the user.")
+   (interactable
+    :initarg :interactable
+    :initform nil
+    :accessor interactable-p
+    :documentation "Whether or not the element is interactable, for example a
+                    button."))
   (:documentation "Represents an element that can be printed on the screen."))
 
 (defgeneric draw (element scr))
@@ -54,7 +60,7 @@
 (defmethod draw ((item item) scr)
   (move scr (x item) (y item))
   (format scr "~A~A: ~A"
-          (if (is-selected item) "> " "  ")
+          (if (selected-p item) "> " "  ")
           (index item)
           (get-property item :title)))
 
@@ -63,6 +69,10 @@
 
 (defmethod get-property ((item item) property)
   (cdr (assoc property (data item))))
+
+(defun get-comments-url (item)
+  "Returns the link to the HN comments page of the item"
+  (format nil "~Aitem?id=~A" *hn-base-uri* (get-property item :id)))
 
 ;;; Button
 
@@ -81,5 +91,5 @@
 (defmethod draw ((button button) scr)
   (move scr (x button) (y button))
   (format scr "~A~A"
-          (if (is-selected button) ">" " ")
+          (if (selected-p button) ">" " ")
           (label button)))

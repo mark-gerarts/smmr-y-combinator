@@ -8,10 +8,17 @@
                               :data story
                               :index index
                               :pos `(,(* 2 index) 0)))
+         (next-row (1+ (* 2 index)))
          (summarize (make-instance 'button
-                                   :pos `(,(1+ (* 2 index)) 4)
-                                   :label "Summarize")))
-    (list item summarize)))
+                                   :pos (list next-row 4)
+                                   :label "Summarize"))
+         (comments
+           (make-instance 'button
+                          :pos (list next-row 15)
+                          :label "Comments"
+                          :action `(open-browser ,(get-comments-url item))
+                          :interactable t)))
+    (list item summarize comments)))
 
 (defun get-initial-elements ()
   "Creates a list of elements that should be available when the application
@@ -29,9 +36,10 @@
                                        :screen scr
                                        :elements elements)))
       ;; Set the first element as selected by default.
-      (setf (is-selected (first elements)) t)
+      (setf (selected-p (first elements)) t)
       (render application)
       (event-case (scr event)
-        (:up (select-previous application) (render application))
-        (:down (select-next application) (render application))
-        (#\q (return-from event-case))))))
+                  (:up (select-previous application) (render application))
+                  (:down (select-next application) (render application))
+                  (#\newline (do-action application))
+                  (#\q (return-from event-case))))))

@@ -7,7 +7,8 @@
   :version "0.0.1"
   :depends-on (#:croatoan
                #:drakma
-               #:cl-json)
+               #:cl-json
+               #:trivial-open-browser)
   :components ((:module "src"
                 :components ((:file "package")
                              (:file "hacker-news-api")

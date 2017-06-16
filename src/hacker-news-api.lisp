@@ -2,12 +2,13 @@
 
 (in-package #:smmr-y-combinator)
 
-(defvar *hn-base-uri* "https://hacker-news.firebaseio.com/v0/")
+(defvar *hn-api-base-uri* "https://hacker-news.firebaseio.com/v0/")
+(defvar *hn-base-uri* "https://news.ycombinator.com/")
 
 (defun build-hn-url (endpoint &optional parameter)
   (concatenate
    'string
-   *hn-base-uri*
+   *hn-api-base-uri*
    endpoint
    (when parameter (format nil "/~A" parameter))
    ".json"))

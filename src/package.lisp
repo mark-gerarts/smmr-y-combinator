@@ -4,4 +4,5 @@
   (:use #:cl
         #:croatoan
         #:drakma
-        #:cl-json))
+        #:cl-json)
+  (:import-from #:trivial-open-browser #:open-browser))
