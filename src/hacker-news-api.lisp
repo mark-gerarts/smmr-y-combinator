@@ -1,4 +1,6 @@
 ;;;; hacker-news-api.lisp
+;;;;
+;;;; All things related to the Hacker News API.
 
 (in-package #:smmr-y-combinator)
 

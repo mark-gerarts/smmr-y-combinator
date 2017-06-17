@@ -12,6 +12,7 @@
   :components ((:module "src"
                 :components ((:file "package")
                              (:file "hacker-news-api")
+                             (:file "smmry-api")
                              (:file "elements")
                              (:file "application")
                              (:file "smmr-y-combinator")))))
