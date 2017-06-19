@@ -31,7 +31,8 @@
                     button."))
   (:documentation "Represents an element that can be printed on the screen."))
 
-(defgeneric draw (element scr))
+(defgeneric draw (element scr)
+  :documentation "Draws the element on the screen.")
 
 (defgeneric x (element))
 

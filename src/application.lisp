@@ -28,10 +28,8 @@
   "When given a list of elements, returns the first one that is selected"
   (find-if #'(lambda (el) (selected-p el)) elements))
 
-(defgeneric select-next (application)
-  (:documentation "Marks the next element as selected."))
-
-(defmethod select-next ((application application))
+(defun select-next (application)
+  "Marks the next element as selected"
   (let* ((elements (elements application))
          (selectable-elements (get-selectable-elements elements))
          (selected-element (get-selected-element elements))
@@ -41,10 +39,8 @@
     (setf (selected-p selected-element) nil)
     (setf (selected-p next-element) t)))
 
-(defgeneric select-previous (application)
-  (:documentation "Marks the previous element as selected."))
-
-(defmethod select-previous ((application application))
+(defun select-previous (application)
+  "Marks the previous element as selected"
   (let* ((elements (elements application))
          (selectable-elements (get-selectable-elements elements))
          (selected-element (get-selected-element elements))
