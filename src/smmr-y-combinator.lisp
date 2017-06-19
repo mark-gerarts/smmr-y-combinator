@@ -4,10 +4,12 @@
 
 (defun elements-from-story (story index)
   "Creates the item element and its associated buttons for a story."
-  (let* ((item (make-instance 'item
-                              :data story
-                              :index index
-                              :pos `(,(* 2 index) 0)))
+  (let* ((item (make-instance
+                'item
+                :data story
+                :index index
+                :pos `(,(* 2 index) 0)
+                :interactable t))
          (next-row (1+ (* 2 index)))
          (summarize (make-instance 'button
                                    :pos (list next-row 4)
@@ -18,6 +20,7 @@
                           :label "Comments"
                           :action `(open-browser ,(get-comments-url item))
                           :interactable t)))
+    (setf (action item) `(open-browser ,(get-property item :url)))
     (list item summarize comments)))
 
 (defun get-initial-elements ()
