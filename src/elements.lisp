@@ -32,7 +32,7 @@
   (:documentation "Represents an element that can be printed on the screen."))
 
 (defgeneric draw (element scr)
-  :documentation "Draws the element on the screen.")
+  (:documentation "Draws the element on the screen."))
 
 (defgeneric x (element))
 
@@ -59,6 +59,7 @@
   (:documentation "Represents an interactable button"))
 
 (defmethod draw ((button button) scr)
+  ;; @todo: this is wrong. y comes before x.
   (move scr (x button) (y button))
   (format scr "~A~A"
           (if (selected-p button) ">" " ")

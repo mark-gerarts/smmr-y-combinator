@@ -13,6 +13,7 @@
                 :components ((:file "package")
                              (:file "hacker-news-api")
                              (:file "smmry-api")
+                             (:file "screen")
                              (:file "elements")
                              (:file "application")
                              (:file "smmr-y-combinator")))))

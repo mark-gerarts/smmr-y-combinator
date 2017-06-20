@@ -17,8 +17,18 @@
   (:documentation "Renders the application on the attached screen."))
 
 (defmethod render ((application application))
-  (loop for element in (elements application) do
-    (draw element (screen application))))
+  (let* ((scr (screen application))
+         (scr-width (.width scr))
+         (app-width 80)
+         (start-x (if (<= scr-width app-width)
+                      0
+                      (floor (/ (- scr-width app-width) 2)))))
+    ;; Draw the header.
+    (move scr 1 start-x)
+    (format scr "~A" "SMMR-Y-COMBINATOR")
+    (fill-line scr :length app-width :start-pos `(,start-x 2))))
+  ;(loop for element in (elements application) do
+  ;  (draw element (screen application))))
 
 (defun get-selectable-elements (elements)
   "When given a list of elements, filters out thos who are not selectable"
