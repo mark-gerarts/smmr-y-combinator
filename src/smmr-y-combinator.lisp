@@ -8,15 +8,15 @@
                 'item
                 :data story
                 :index index
-                :pos `(,(* 2 index) 0)
+                :pos `(0 ,(* 2 index))
                 :interactable t))
          (next-row (1+ (* 2 index)))
          (summarize (make-instance 'button
-                                   :pos (list next-row 4)
+                                   :pos (list 4 next-row)
                                    :label "Summarize"))
          (comments
            (make-instance 'button
-                          :pos (list next-row 15)
+                          :pos (list 15 next-row)
                           :label "Comments"
                           :action `(open-browser ,(get-comments-url item))
                           :interactable t)))
@@ -35,11 +35,12 @@
                     :cursor-visibility nil
                     :enable-colors t)
     (let* ((elements (get-initial-elements))
+           (first-el (first elements))
            (application (make-instance 'application
                                        :screen scr
                                        :elements elements)))
       ;; Set the first element as selected by default.
-      (setf (selected-p (first elements)) t)
+      (when first-el (setf (selected-p first-el) t))
       (render application)
       (event-case (scr event)
                   (:up (select-previous application) (render application))

@@ -17,11 +17,39 @@
   (:documentation "Renders the application on the attached screen."))
 
 (defmethod render ((application application))
-  (loop for element in (elements application) do
-    (draw element (screen application))))
+  (let* ((scr (screen application))
+         (scr-width (.width scr))
+         (app-width 80)
+         (start-x (if (<= scr-width app-width)
+                      0
+                      (floor (/ (- scr-width app-width) 2))))
+         (elements (copy-list (elements application))))
+    ;; Draw the header.
+    (move scr 1 start-x)
+    (format scr "~A" "SMMR-Y-COMBINATOR")
+    (fill-line scr :length app-width :start-pos `(,start-x 2))
+    (add-offset-adjustment elements start-x 3 )
+    (loop for element in elements do
+      (draw element (screen application)))
+    ;; Because render is called multiple times, we have to remove the adjustment
+    ;; every time.
+    ;; @todo: this logic should be replaced by something better.
+    (remove-offset-adjustment elements start-x 3)))
+
+(defun add-offset-adjustment (elements offset-x offset-y)
+  "Loops over all elements and adds the given x and y offsets to the positions."
+  (loop for el in elements do
+    (let* ((new-x (+ (x el) offset-x))
+           (new-y (+ (y el) offset-y)))
+      (setf (pos el) (list new-x new-y)))))
+
+(defun remove-offset-adjustment (elements offset-x offset-y)
+  "Loops over all elements and removes the given x and y offsets from the
+   positions."
+  (add-offset-adjustment elements (* -1 offset-x) (* -1 offset-y)))
 
 (defun get-selectable-elements (elements)
-  "When given a list of elements, filters out thos who are not selectable"
+  "When given a list of elements, filters out those that are not selectable"
   (remove-if-not #'(lambda (el) (selectable-p el)) elements))
 
 (defun get-selected-element (elements)
