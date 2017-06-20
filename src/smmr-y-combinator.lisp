@@ -8,15 +8,15 @@
                 'item
                 :data story
                 :index index
-                :pos `(,(* 2 index) 0)
+                :pos `(0 ,(* 2 index))
                 :interactable t))
          (next-row (1+ (* 2 index)))
          (summarize (make-instance 'button
-                                   :pos (list next-row 4)
+                                   :pos (list 4 next-row)
                                    :label "Summarize"))
          (comments
            (make-instance 'button
-                          :pos (list next-row 15)
+                          :pos (list 15 next-row)
                           :label "Comments"
                           :action `(open-browser ,(get-comments-url item))
                           :interactable t)))
@@ -26,7 +26,7 @@
 (defun get-initial-elements ()
   "Creates a list of elements that should be available when the application
    loads."
-  (loop for story in '() ;(fetch-item-list (get-top-stories) 2)
+  (loop for story in (fetch-item-list (get-top-stories) 2)
         for i from 0 append (elements-from-story story i)))
 
 (defun init ()

@@ -37,12 +37,12 @@
 (defgeneric x (element))
 
 (defmethod x ((element element))
-  (first (pos element)))
+  (car (pos element)))
 
 (defgeneric y (element))
 
 (defmethod y ((element element))
-  (second (pos element)))
+  (cadr (pos element)))
 
 ;;; Button
 
@@ -59,8 +59,8 @@
   (:documentation "Represents an interactable button"))
 
 (defmethod draw ((button button) scr)
-  ;; @todo: this is wrong. y comes before x.
-  (move scr (x button) (y button))
+  ;; @todo: this is wrong. Y comes before x.
+  (move scr (y button) (x button))
   (format scr "~A~A"
           (if (selected-p button) ">" " ")
           (label button)))
@@ -80,7 +80,7 @@
   (:documentation "An element that represents a HN item"))
 
 (defmethod draw ((item item) scr)
-  (move scr (x item) (y item))
+  (move scr (y item) (x item))
   (format scr "~A~A: ~A"
           (if (selected-p item) "> " "  ")
           (index item)
