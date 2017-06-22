@@ -25,7 +25,7 @@
                       (floor (/ (- scr-width app-width) 2))))
          (elements (copy-list (elements application))))
     ;; Draw the header.
-    (move scr 1 start-x)
+    (move scr 1 (+ start-x 2))
     (format scr "~A" "SMMR-Y-COMBINATOR")
     (fill-line scr :length app-width :start-pos `(,start-x 2))
     (add-offset-adjustment elements start-x 3 )
